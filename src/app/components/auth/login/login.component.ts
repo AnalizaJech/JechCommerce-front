@@ -20,12 +20,16 @@ export class LoginComponent {
       next: (res: any) => {
         localStorage.setItem('token', res.access_token);
         const rol = JSON.parse(atob(res.access_token.split('.')[1])).rol;
+        this.router.navigate([rol === 'admin' ? '/admin/productos' : '/cliente/tienda']);
 
-        this.router.navigate([rol === 'admin' ? '/productos' : '/tienda']);
+
+
+
       },
       error: () => {
         alert('Usuario o contraseña incorrectos.');
       }
     });
   }
+  
 }
