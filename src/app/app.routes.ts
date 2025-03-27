@@ -1,3 +1,4 @@
+// src/app/app.routes.ts
 import { Routes } from '@angular/router';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
@@ -7,41 +8,57 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
 
-  // Rutas específicas para ADMIN
+  // Rutas con layout de Sidebar (solo para admin)
   {
-    path: 'productos',
-    loadComponent: () => import('./components/pages/productos/productos.component').then(m => m.ProductosComponent),
-    canActivate: [roleGuard(['admin'])]
-  },
-  {
-    path: 'ventas',
-    loadComponent: () => import('./components/pages/ventas/ventas.component').then(m => m.VentasComponent),
-    canActivate: [roleGuard(['admin'])]
-  },
-  {
-    path: 'crear-producto',
-    loadComponent: () => import('./components/pages/crear-producto/crear-producto.component').then(m => m.CrearProductoComponent),
-    canActivate: [roleGuard(['admin'])]
+    path: '',
+    loadComponent: () =>
+      import('./components/shared/sidebar/sidebar.component').then(
+        (m) => m.SidebarComponent
+      ),
+    canActivate: [roleGuard(['admin'])],
+    children: [
+      {
+        path: 'productos',
+        loadComponent: () =>
+          import('./components/pages/productos/productos.component').then(
+            (m) => m.ProductosComponent
+          ),
+      },
+      {
+        path: 'ventas',
+        loadComponent: () =>
+          import('./components/pages/ventas/ventas.component').then(
+            (m) => m.VentasComponent
+          ),
+      },
+      {
+        path: 'crear-producto',
+        loadComponent: () =>
+          import(
+            './components/pages/crear-producto/crear-producto.component'
+          ).then((m) => m.CrearProductoComponent),
+      },
+    ],
   },
 
-  // Rutas específicas para CLIENTE
+  // Cliente
   {
     path: 'tienda',
-    loadComponent: () => import('./components/pages/tienda/tienda.component').then(m => m.TiendaComponent),
-    canActivate: [roleGuard(['cliente'])]
+    loadComponent: () =>
+      import('./components/pages/tienda/tienda.component').then(
+        (m) => m.TiendaComponent
+      ),
+    canActivate: [roleGuard(['cliente'])],
   },
   {
     path: 'carrito',
-    loadComponent: () => import('./components/pages/carrito/carrito.component').then(m => m.CarritoComponent),
-    canActivate: [roleGuard(['cliente'])]
+    loadComponent: () =>
+      import('./components/pages/carrito/carrito.component').then(
+        (m) => m.CarritoComponent
+      ),
+    canActivate: [roleGuard(['cliente'])],
   },
 
-  {
-    path: 'mis-compras',
-    loadComponent: () => import('./components/pages/ventas/ventas.component').then(m => m.VentasComponent),
-    canActivate: [roleGuard(['cliente'])]
-  },
-  
-  // Ruta por defecto
-  { path: '**', redirectTo: 'login' }
+  // Redirección por defecto
+  { path: '**', redirectTo: 'login' },
 ];

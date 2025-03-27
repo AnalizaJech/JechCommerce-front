@@ -6,7 +6,7 @@ import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-crear-producto',
-  imports: [FormsModule,NgIf],
+  imports: [FormsModule, NgIf],
   templateUrl: './crear-producto.component.html',
 })
 export class CrearProductoComponent {
