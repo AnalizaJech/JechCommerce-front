@@ -1,1 +1,13 @@
-<p>ventas works!</p>
+<div class="p-6">
+    <h2 class="text-2xl text-white font-bold mb-4">Mis Compras</h2>
+  
+    <div *ngIf="ventas.length === 0" class="text-gray-400">Aún no has realizado compras.</div>
+  
+    <div *ngFor="let venta of ventas" class="bg-white/10 backdrop-blur-md p-4 rounded-lg mb-4 border border-white/20 text-white">
+      <h3 class="text-lg font-semibold mb-1">{{ venta.producto.nom_producto }}</h3>
+      <p class="text-sm text-gray-300 mb-1">{{ venta.producto.descripcion }}</p>
+      <p class="text-sm">Precio pagado: <span class="font-medium">S/. {{ venta.monto_final }}</span></p>
+      <p class="text-sm text-gray-400">Fecha: {{ venta.fecha_venta | date:'short' }}</p>
+    </div>
+  </div>
+  

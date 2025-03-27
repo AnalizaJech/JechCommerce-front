@@ -1,1 +1,14 @@
-<p>tienda works!</p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6">
+    <div *ngFor="let p of productos" class="bg-white/10 backdrop-blur-md p-4 rounded-lg shadow-lg border border-white/20 text-white">
+      <h2 class="text-xl font-bold mb-2">{{ p.nom_producto }}</h2>
+      <p class="text-sm text-gray-300 mb-2">{{ p.descripcion }}</p>
+      <p class="text-lg font-semibold mb-4">S/. {{ p.precio_final }}</p>
+      <button
+        (click)="comprar(p)"
+        class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg w-full"
+      >
+        Comprar
+      </button>
+    </div>
+  </div>
+  

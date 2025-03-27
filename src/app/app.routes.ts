@@ -36,6 +36,12 @@ export const routes: Routes = [
     canActivate: [roleGuard(['cliente'])]
   },
 
+  {
+    path: 'mis-compras',
+    loadComponent: () => import('./components/pages/ventas/ventas.component').then(m => m.VentasComponent),
+    canActivate: [roleGuard(['cliente'])]
+  },
+  
   // Ruta por defecto
   { path: '**', redirectTo: 'login' }
 ];
