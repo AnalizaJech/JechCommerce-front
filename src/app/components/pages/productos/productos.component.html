@@ -1,1 +1,90 @@
-<p>productos works!</p>
+<div class="max-w-6xl mx-auto px-4 text-white">
+
+    <!-- Título -->
+    <h2 class="text-2xl font-bold mb-6 border-b border-gray-600 pb-2 flex items-center gap-2">
+      🧾 <span>Productos</span>
+    </h2>
+  
+    <!-- Input de búsqueda y botón -->
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
+      <div class="relative w-full sm:max-w-md">
+        <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+          <!-- Icono lupa -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+            <path d="M21 21l-6 -6" />
+          </svg>
+        </span>
+        <input
+          type="text"
+          [(ngModel)]="busqueda"
+          (input)="buscarProductos()"
+          class="w-full pl-10 pr-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+          placeholder="Buscar productos..."
+        />
+      </div>
+  
+      <!-- Botón nuevo producto -->
+      <button
+        routerLink="/admin/crear-producto"
+        class=" cursor-pointer bg-purple-800 hover:bg-purple-900  text-white font-semibold px-6 py-2 rounded-xl shadow-md transition-all duration-300"
+      >
+        Nuevo Producto
+      </button>
+    </div>
+  
+    <!-- Tabla -->
+    <div class="overflow-x-auto">
+      <table class="min-w-full bg-gray-800 rounded-lg shadow-md overflow-hidden text-sm">
+        <thead class="bg-sky-700 text-white text-left">
+          <tr>
+            <th class="py-3 px-4">Producto</th>
+            <th class="py-3 px-4">Precio</th>
+            <th class="py-3 px-4">Stock</th>
+            <th class="py-3 px-4 text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let producto of paginatedProducts" class="border-b border-gray-700 hover:bg-gray-700 transition">
+            <td class="py-3 px-4">{{ producto.nom_producto }}</td>
+            <td class="py-3 px-4">S/. {{ producto.precio_final | number:'1.2-2' }}</td>
+            <td class="py-3 px-4">{{ producto.stock }}</td>
+            <td class="py-3 px-4 text-center">
+              <button (click)="editarProducto(producto)" class="text-yellow-400 hover:text-yellow-500 cursor-pointer mr-2">
+                <!-- Editar -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+                  <path d="M13.5 6.5l4 4" />
+                </svg>
+              </button>
+              <button (click)="eliminarProducto(producto)" class="text-red-500 hover:text-red-600 cursor-pointer">
+                <!-- Eliminar -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path d="M4 7h16M10 11v6M14 11v6M5 7l1 12a2 2 0 002 2h8a2 2 0 002-2l1-12M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3" />
+                </svg>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Paginación -->
+    <div class="flex justify-between mt-6" *ngIf="productos.length > pageSize">
+      <button
+        (click)="changePage(page - 1)"
+        [disabled]="page === 1"
+        class="cursor-pointer bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition disabled:opacity-50"
+      >
+        ← Anterior
+      </button>
+      <button
+        (click)="changePage(page + 1)"
+        [disabled]="page * pageSize >= productos.length"
+        class="cursor-pointer bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition disabled:opacity-50"
+      >
+        Siguiente →
+      </button>
+    </div>
+  </div>
+  

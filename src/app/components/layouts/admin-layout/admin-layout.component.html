@@ -1,6 +1,6 @@
-<div class="flex h-screen bg-gradient-to-b from-[#0f0c29] via-[#302b63] to-[#24243e] text-white">
+<div class="flex  h-screen bg-gradient-to-b from-[#0f0c29] via-[#302b63] to-[#24243e] text-white">
     <!-- Sidebar -->
-    <div [ngClass]="isCollapsed ? 'w-20' : 'w-64'" class="transition-all duration-300 bg-[#1a1a2e] p-4 shadow-lg flex flex-col">
+    <div [ngClass]="isCollapsed ? 'w-20' : 'w-64'" class="transition-all duration-300 bg-[#1a1a2e] p-4 shadow-lg flex flex-col ">
   
       <!-- LOGO -->
       <div (click)="isCollapsed = !isCollapsed"
@@ -73,7 +73,7 @@
     </div>
   
     <!-- Contenido principal -->
-    <div class="flex-1 p-6">
+    <div class="flex-1 p-4">
       <router-outlet></router-outlet>
     </div>
   </div>
