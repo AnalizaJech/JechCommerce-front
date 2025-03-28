@@ -1,1 +1,68 @@
-<p>carrito works!</p>
+<div class="max-w-4xl mx-auto p-4 text-white">
+  <h2 class="text-2xl font-bold mb-6 border-b border-gray-600 pb-2 flex items-center gap-2">
+    🛒 <span>Tu carrito</span>
+  </h2>
+
+  <div *ngIf="cart.length === 0" class="text-center text-gray-400">
+    No tienes productos en el carrito.
+  </div>
+
+  <div *ngFor="let item of cart" class="bg-gray-800 rounded-lg p-4 mb-4 shadow-md flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    
+    <!-- Info del producto -->
+    <div class="flex-1">
+      <h3 class="text-lg font-semibold">{{ item.nom_producto }}</h3>
+      <p class="text-sm text-gray-400">Precio: S/. {{ item.precio_final }}</p>
+
+      <!-- Cantidad -->
+      <div class="mt-2 flex items-center gap-4 flex-wrap sm:flex-nowrap">
+        <label class="text-sm font-medium">Cantidad:</label>
+        <div class="flex items-center gap-2 bg-gray-700 px-3 py-1 rounded">
+          <button (click)="actualizarCantidad(item.id_producto, item.cantidad - 1)" class="text-red-400 hover:text-red-600 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path d="M5 12h14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+
+          <span class="text-white w-6 text-center">{{ item.cantidad }}</span>
+
+          <button (click)="actualizarCantidad(item.id_producto, item.cantidad + 1)" class="text-green-400 hover:text-green-600 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path d="M12 5v14M5 12h14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Subtotal + Eliminar -->
+    <div class="w-full sm:w-auto flex flex-col sm:items-end items-end gap-2">
+      <p class="text-green-400 font-bold text-sm sm:text-base">
+        Subtotal: S/. {{ item.precio_final * item.cantidad | number:'1.2-2' }}
+      </p>
+
+      <button (click)="eliminar(item.id_producto)" 
+              class="flex items-center gap-1 text-red-500 hover:text-red-700 cursor-pointer  py-1 rounded-md transition duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path d="M4 7h16M10 11v6M14 11v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12M9 7V4a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="text-sm">Eliminar</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Total -->
+  <div *ngIf="cart.length > 0" class="mt-6 bg-gray-900 rounded-lg p-4">
+    <div class="flex justify-between text-lg font-semibold">
+      <span>Total:</span>
+      <span>S/. {{ getTotal() | number:'1.2-2' }}</span>
+    </div>
+
+    <button
+      (click)="confirmarCompra()"
+      class="mt-4 w-full py-2 bg-green-500 hover:bg-green-600 rounded shadow-md font-bold text-white cursor-pointer"
+    >
+      Confirmar compra
+    </button>
+  </div>
+</div>

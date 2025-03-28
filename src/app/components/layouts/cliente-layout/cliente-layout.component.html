@@ -47,9 +47,9 @@
         <div *ngIf="showMenu"
              class="absolute right-0 mt-2 bg-white text-black rounded shadow-md w-48 py-2 z-50">
           <div class="px-4 py-2 font-semibold text-cyan-700 border-b border-gray-200">
-            Bienvenido:<br><span class="text-lg font-bold text-black">{{ user?.username }}</span>
+            Bienvenido:<br><span class="text-lg font-bold text-black">{{ user?.nom_persona }}</span>
           </div>
-          <a routerLink="/cliente/historial" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
+          <a routerLink="/cliente/mis-compras" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" stroke="currentColor"
                  stroke-width="2" viewBox="0 0 24 24">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"/>

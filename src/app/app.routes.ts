@@ -24,6 +24,7 @@ export const routes: Routes = [
         },
         {
           path: 'crear-producto',
+          
           loadComponent: () => import('./components/pages/crear-producto/crear-producto.component').then(m => m.CrearProductoComponent),
         },
       ]
@@ -49,6 +50,12 @@ export const routes: Routes = [
             path: 'carrito',
             loadComponent: () => import('./components/pages/carrito/carrito.component').then(m => m.CarritoComponent),
           },
+          {
+            path: 'mis-compras',
+            loadComponent: () =>
+              import('./components/pages/ventas/mis-compras/mis-compras.component').then(m => m.MisComprasComponent),
+          },
+          
         ]
       },
   

@@ -1,8 +1,14 @@
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-6">
     <div
       *ngFor="let p of productos"
-      class="bg-white/10 border border-white/20 backdrop-blur-xl rounded-3xl p-6 shadow-xl text-white transition hover:scale-[1.02] duration-300 flex flex-col justify-between"
+      class="relative bg-white/10 border border-white/20 backdrop-blur-xl rounded-3xl p-6 shadow-xl text-white transition hover:scale-[1.02] duration-300 flex flex-col justify-between"
     >
+      <!-- Etiqueta de Oferta -->
+      <div *ngIf="p.is_oferta"
+           class="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg animate-pulse">
+        🔥 Oferta
+      </div>
+  
       <!-- Nombre del producto -->
       <h2 class="text-2xl font-bold text-cyan-300 mb-2">{{ p.nom_producto }}</h2>
   
@@ -11,15 +17,18 @@
         {{ p.descripcion }}
       </p>
   
-      <!-- Precio -->
-      <div class="text-right mb-4">
-        <span class="text-lg font-semibold text-emerald-400">S/. {{ p.precio_final }}</span>
+      <!-- Precios -->
+      <div class="text-right mb-4 space-y-1">
+        <!-- Precio anterior tachado -->
+        <span *ngIf="p.is_oferta" class="text-sm line-through text-gray-400">S/. {{ p.precio }}</span>
+        <!-- Precio final -->
+        <div class="text-lg font-semibold text-emerald-400">S/. {{ p.precio_final }}</div>
       </div>
   
       <!-- Botón de compra -->
       <button
         (click)="comprar(p)"
-        class="bg-cyan-400 hover:bg-cyan-500 text-gray-900 font-bold py-2 rounded-xl transition shadow-lg hover:shadow-cyan-400/50"
+        class="bg-cyan-400 hover:bg-cyan-500 text-gray-900 font-bold py-2 rounded-xl transition shadow-lg hover:shadow-cyan-400/50 cursor-pointer"
       >
         Comprar
       </button>
